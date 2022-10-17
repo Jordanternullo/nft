@@ -15,12 +15,11 @@ import {
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const Home: NextPage = () => {
   const cardWithSize = (item: createAndSellYourNFTsModel, index?: number) => (
     <div
-      key={index}
+      key={index || 0}
       className={`bg-cover bg-center rounded-2xl relative`}
       style={{
         backgroundImage: `url(${item.image})`,

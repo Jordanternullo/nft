@@ -8,6 +8,11 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@3rdweb/hooks": "^1.9.2",
+    "@3rdweb/react": "^1.9.3",
+    "@3rdweb/sdk": "^1.42.1",
+    "@material-tailwind/react": "^1.2.4",
+    "antd": "^4.23.6",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
