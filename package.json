@@ -13,10 +13,13 @@
     "@3rdweb/sdk": "^1.42.1",
     "@material-tailwind/react": "^1.2.4",
     "antd": "^4.23.6",
+    "axios": "^1.1.3",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "storybook-addon-next": "^1.6.9"
+    "storybook-addon-next": "^1.6.9",
+    "use-nft": "^0.12.0",
+    "web3": "^1.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

@@ -111,8 +111,8 @@ export const collectionFeaturedNFTs = [
 export interface discoverMoreNFTs {
   image: string
   title: string
-  amount: string
-  timeLeft: string[]
+  amount?: string
+  timeLeft?: string[]
 }
 
 export const discoverMoreNFTs: discoverMoreNFTs[] = [
@@ -164,5 +164,41 @@ export const discoverMoreNFTs: discoverMoreNFTs[] = [
     title: 'ArtCrypto',
     amount: '0.25',
     timeLeft: ['3', '50', '2'],
+  },
+]
+
+export const discoverMoreNFTs2: discoverMoreNFTs[] = [
+  {
+    image: '/assets/images/hero/unsplash_E8Ufcyxz514.svg',
+    title: 'ArtCrypto',
+  },
+  {
+    image: '/assets/images/hero/unsplash_pVoEPpLw818.svg',
+    title: 'ArtCrypto',
+  },
+  {
+    image: '/assets/images/hero/unsplash_tZCrFpSNiIQ.svg',
+    title: 'ArtCrypto',
+  },
+  {
+    image: '/assets/images/hero/unsplash_pVoEPpLw818.svg',
+    title: 'ArtCrypto',
+  },
+  {
+    image: '/assets/images/hero/unsplash_tZCrFpSNiIQ.svg',
+    title: 'ArtCrypto',
+  },
+  {
+    image: '/assets/images/hero/unsplash_E8Ufcyxz514.svg',
+    title: 'ArtCrypto',
+  },
+
+  {
+    image: '/assets/images/hero/unsplash_pVoEPpLw818.svg',
+    title: 'ArtCrypto',
+  },
+  {
+    image: '/assets/images/hero/unsplash_tZCrFpSNiIQ.svg',
+    title: 'ArtCrypto',
   },
 ]

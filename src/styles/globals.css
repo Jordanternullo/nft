@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'Integral CF ExtraBold';
+  src: url('../../public/assets/fonts/integral-cf/IntegralCF-ExtraBold.eot');
+  src: url('../../public/assets/fonts/integral-cf/IntegralCF-ExtraBold.woff2')
+      format('woff2'),
+    url('../../public/assets/fonts/integral-cf/IntegralCF-ExtraBold.woff')
+      format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Integral CF';
+  src: url('../../public/assets/fonts/integral-cf/IntegralCF-Bold.eot');
+  src: url('../../public/assets/fonts/integral-cf/IntegralCF-Bold.woff2')
+      format('woff2'),
+    url('../../public/assets/fonts/integral-cf/IntegralCF-Bold.woff')
+      format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Averta Demo';
+  src: url('../../public/assets/fonts/averta/AvertaDemo-Regular.otf');
+  font-weight: 400;
+  font-style: normal;
+}

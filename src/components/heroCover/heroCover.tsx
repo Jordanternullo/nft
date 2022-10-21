@@ -1,6 +1,6 @@
-import { Button } from 'components/atomic/button/button'
-import { CardStack } from 'components/atomic/cardStack/cardStack'
-import { CardModel } from 'model/card'
+import { Button } from 'src/components/atomic/button/button'
+import { CardStack } from 'src/components/atomic/cardStack/cardStack'
+import { CardModel } from 'src/model/card'
 
 export interface HeroCoverProps {
   className?: string

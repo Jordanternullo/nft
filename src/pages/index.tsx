@@ -1,9 +1,8 @@
-import { Button, ButtonStyle } from 'components/atomic/button/button'
-import { Card } from 'components/atomic/card/card'
-import { Input } from 'components/atomic/form/input/input'
-import { Footer } from 'components/footer/footer'
-import { HeroCover } from 'components/heroCover/heroCover'
-import { Navbar } from 'components/navbar/navbar'
+import { Button, ButtonStyle } from 'src/components/atomic/button/button'
+import { Card } from 'src/components/atomic/card/card'
+import { Footer } from 'src/components/footer/footer'
+import { HeroCover } from 'src/components/heroCover/heroCover'
+import { Navbar } from 'src/components/navbar/navbar'
 import {
   cardHeroCover,
   collectionFeaturedNft,
@@ -15,27 +14,9 @@ import {
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { DiscoverMoreNFTs } from 'src/components/discoverMoreNFTs/discoverMoreNFTs'
 
 const Home: NextPage = () => {
-  const cardWithSize = (item: createAndSellYourNFTsModel, index?: number) => (
-    <div
-      key={index || 0}
-      className={`bg-cover bg-center rounded-2xl relative`}
-      style={{
-        backgroundImage: `url(${item.image})`,
-        width: item.width,
-        height: item.height,
-      }}
-    >
-      <div
-        className=' absolute w-20 h-20 rounded-full bg-cover bg-no-repeat bg-center bottom-[-35px] right-[-35px] border-4 border-white'
-        style={{
-          backgroundImage: `url(${item.avatar})`,
-        }}
-      ></div>
-    </div>
-  )
-
   return (
     <div className='flex min-h-screen flex-col items-center justify-center py-2'>
       <Head>
@@ -166,7 +147,7 @@ const Home: NextPage = () => {
         </section>
         <section className='bg-grey-500 px-20 py-32 text-left w-full'>
           <h2 className='font-integralExtra text-3xl mb-14'>
-            Collection Featured NFTs
+            Discover more NFTs
           </h2>
           <div className='flex gap-3'>
             {collectionFeaturedNFTs.map((item, index) => (
@@ -190,21 +171,7 @@ const Home: NextPage = () => {
             <Button buttonStyle={ButtonStyle.Secondary}>More NFTs</Button>
           </div>
         </section>
-        <section className='bg-grey-500 px-20 py-32 text-left w-full'>
-          <h2 className='font-integralExtra text-3xl mb-14'>
-            Discover more NFTs
-          </h2>
-          <div className='grid grid-cols-4 gap-10 mt-10'>
-            {discoverMoreNFTs.map((item: discoverMoreNFTs, index: number) => (
-              <Card
-                key={index}
-                card={item}
-                className={`bg-white`}
-                withDescription={false}
-              />
-            ))}
-          </div>
-        </section>
+        <DiscoverMoreNFTs />
       </main>
       <Footer />
       <div className='text-center w-full border-t border-grey-200 p-4'>
@@ -213,5 +180,27 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+export const cardWithSize = (
+  item: createAndSellYourNFTsModel,
+  index?: number
+) => (
+  <div
+    key={index || 0}
+    className={`bg-cover bg-center rounded-2xl relative`}
+    style={{
+      backgroundImage: `url(${item.image})`,
+      width: item.width,
+      height: item.height,
+    }}
+  >
+    <div
+      className=' absolute w-20 h-20 rounded-full bg-cover bg-no-repeat bg-center bottom-[-35px] right-[-35px] border-4 border-white'
+      style={{
+        backgroundImage: `url(${item.avatar})`,
+      }}
+    ></div>
+  </div>
+)
 
 export default Home

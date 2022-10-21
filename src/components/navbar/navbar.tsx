@@ -1,4 +1,4 @@
-import { Input } from 'components/atomic/form/input/input'
+import { Input } from 'src/components/atomic/form/input/input'
 import {
   Popover,
   PopoverHandler,
@@ -7,7 +7,7 @@ import {
 } from '@material-tailwind/react'
 import { useSwitchNetwork, useWeb3 } from '@3rdweb/hooks'
 import { useEffect, useState } from 'react'
-import { supportedChainIds } from 'pages/_app'
+import { supportedChainIds } from 'src/pages/_app'
 
 export interface NavbarProps {
   className?: string

@@ -1,4 +1,4 @@
-import { Button } from 'components/atomic/button/button'
+import { Button } from 'src/components/atomic/button/button'
 import Image from 'next/image'
 import Link from 'next/link'
 

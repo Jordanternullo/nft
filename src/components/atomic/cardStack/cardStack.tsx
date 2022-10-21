@@ -1,4 +1,4 @@
-import { CardModel } from 'model/card'
+import { CardModel } from 'src/model/card'
 import Image from 'next/image'
 
 export interface CardStackProps {
