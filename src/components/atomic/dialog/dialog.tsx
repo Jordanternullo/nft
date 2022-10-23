@@ -13,13 +13,18 @@ export interface DialogProps {
   children?: React.ReactNode
   title: string
   onClick?: (e: React.MouseEvent) => void
+  submit?: (e: React.MouseEvent) => void
 }
 
 export const Dialog = (props: DialogProps) => {
-  const { open = false, onClick, children, title } = props
+  const { open = false, onClick, submit, children, title } = props
 
-  const handleOpenChange = () => {
-    onClick && onClick()
+  const handleOpenChange = (event: any) => {
+    onClick && onClick(event)
+  }
+
+  const handleValidate = (event: any) => {
+    submit && submit()
   }
   return (
     <MuiDialog open={open} handler={() => handleOpenChange} size={'lg'}>
@@ -32,6 +37,9 @@ export const Dialog = (props: DialogProps) => {
           className='mr-1'
         >
           <span>Close</span>
+        </Button>
+        <Button buttonStyle={ButtonStyle.Primary} onClick={handleValidate}>
+          <span>Validate</span>
         </Button>
       </DialogFooter>
     </MuiDialog>

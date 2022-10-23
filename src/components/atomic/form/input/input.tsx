@@ -11,9 +11,10 @@ export const Input = (props: InputProps) => {
 
   return (
     <input
-      type='text'
+      type={otherProps.type || 'text'}
       className={`border-2 border-light-100 px-7 py-3 font-sans placeholder:text-grey-300 rounded-full color-light outline-none focus:border-primary-default transition ${otherProps.className}`}
       placeholder={otherProps.placeholder}
+      onChange={onChange}
     />
   )
 }

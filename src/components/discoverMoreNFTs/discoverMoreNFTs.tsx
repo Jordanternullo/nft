@@ -18,17 +18,6 @@ export const DiscoverMoreNFTs = (props: DiscoverMoreNFTsProps) => {
   const [open, setOpen] = useState(false)
   const [dataModal, setDataModal] = useState<any>()
   useEffect(() => {
-    // const { ethereum } = window
-    // if (ethereum) {
-    //   const provider = new ethers.providers.Web3Provider(ethereum)
-    //   // const signer = provider.getSigner()
-    //   const nftContract = new ethers.Contract(
-    //     address,
-    //     abi,
-    //     provider.getSigner()
-    //   )
-    //   nftContract.provider
-    // }
     setLoading(true)
     fetch(
       `https://api.opensea.io/api/v1/assets?asset_contract_address=${address}&limit=200`
@@ -45,7 +34,6 @@ export const DiscoverMoreNFTs = (props: DiscoverMoreNFTsProps) => {
         setLoading(false)
       })
       .catch((err) => {
-        console.log(err)
         setLoading(false)
       })
   }, [])

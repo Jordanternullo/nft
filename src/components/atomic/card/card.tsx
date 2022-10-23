@@ -1,17 +1,58 @@
-import { discoverMoreNFTs } from 'mocks/mocks'
-import { CardModel } from 'src/model/card'
+import { Nft } from 'src/model/models'
 import Image from 'next/image'
-import Link from 'next/link'
-import { Button, ButtonStyle } from '../button/button'
+import { Button } from '../button/button'
+import { useState } from 'react'
+import { Dialog } from '../dialog/dialog'
+import { Input } from '../form/input/input'
+import { useWeb3 } from '@3rdweb/hooks'
+import { createBid } from 'src/services/bid.service'
 
 export interface CardProps {
   className?: string
-  card: discoverMoreNFTs
+  card: Nft
   onClick?: (e: React.MouseEvent) => void
+  updateNftsFilter: (nft: Nft) => void
 }
 
 export const Card = (props: CardProps) => {
-  const { className = '', card, onClick } = props
+  const { className = '', card, onClick, updateNftsFilter } = props
+  const [timeLeft, setTimeLeft] = useState(new Date())
+  const [error, setError] = useState<string>('')
+  const [open, setOpen] = useState(false)
+  const [amount, setAmount] = useState<string>('')
+  const { address } = useWeb3()
+
+  setInterval(() => {
+    setTimeLeft(
+      new Date(new Date(card.endTime).getTime() - new Date().getTime())
+    )
+  }, 1000)
+
+  const handleClickModal = () => {
+    setOpen(!open)
+  }
+  const submit = () => {
+    setError('')
+    if (!+amount) {
+      setError('Please fill in all required fields')
+      return
+    }
+    if (!address) {
+      setError('Please connect your wallet')
+      return
+    }
+    createBid(card._id, amount, address)
+      .then((res) => {
+        res.image = `http://localhost:5000/uploads/${res.image}`
+        updateNftsFilter(res)
+      })
+      .catch((err) => {
+        setError('Server error, retry later')
+      })
+      .finally(() => {
+        handleClickModal()
+      })
+  }
 
   return (
     <div
@@ -40,25 +81,63 @@ export const Card = (props: CardProps) => {
         </div>
         <hr className='border-gray-200 mt-5 mb-2.5' />
         <div className='flex justify-between'>
-          {card.timeLeft && (
+          {card.endTime && (
             <>
+              <div className='flex bg-grey-200 rounded-full px-4 py-1 text-xs text-primary-default font-extralight items-center gap-0.5'>
+                <div>
+                  <span className='font-extrabold'>{timeLeft.getDate()}</span>d
+                </div>
+                <div>
+                  <span className='font-extrabold'>{timeLeft.getHours()}</span>h
+                </div>
+                <div>
+                  <span className='font-bold'>{timeLeft.getMinutes()}</span>m
+                </div>
+                <div>
+                  <span className='font-bold'>{timeLeft.getSeconds()}</span>s
+                  left
+                </div>
+              </div>
               <Button
-                className='px-4 py-1 text-xs !text-primary-default !font-extralight'
-                buttonStyle={ButtonStyle.Grey}
+                onClick={handleClickModal}
+                className={`!bg-transparent !px-4 !py-1 !text-primary-default !font-medium`}
               >
-                <span className='font-extrabold'>{card.timeLeft[0]}</span>h{' '}
-                <span className='font-bold'>{card.timeLeft[1]}</span>m{' '}
-                <span className='font-bold'>{card.timeLeft[2]}</span>s
+                <span>Place a bid</span>
               </Button>
-              <Link href={''}>
-                <span className={`text-primary-default font-medium`}>
-                  Place a bid
-                </span>
-              </Link>
             </>
           )}
         </div>
       </div>
+      <Dialog
+        open={open}
+        onClick={handleClickModal}
+        submit={submit}
+        title={`Create NFT`}
+      >
+        <div className='w-full'>
+          <div className='flex gap-6 justify-center'>
+            <div>
+              <div className='flex flex-col'>
+                <label htmlFor='amount'>Amount</label>
+                <Input
+                  type='text'
+                  name='amount'
+                  value={amount}
+                  onChange={(event) => setAmount(event.target.value)}
+                  className={`rounded-sm ${
+                    error !== '' ? 'border-red-500' : ''
+                  }`}
+                />
+              </div>
+            </div>
+          </div>
+          {error && (
+            <div className='text-center'>
+              <p className='text-red-500'>{error}</p>
+            </div>
+          )}
+        </div>
+      </Dialog>
     </div>
   )
 }

@@ -1,29 +1,59 @@
 import { Button, ButtonStyle } from 'src/components/atomic/button/button'
-import { Card } from 'src/components/atomic/card/card'
 import { Footer } from 'src/components/footer/footer'
 import { HeroCover } from 'src/components/heroCover/heroCover'
 import { Navbar } from 'src/components/navbar/navbar'
 import {
   cardHeroCover,
   collectionFeaturedNft,
-  collectionFeaturedNFTs,
   createAndSellYourNFTs,
   createAndSellYourNFTsModel,
-  discoverMoreNFTs,
 } from 'mocks/mocks'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { DiscoverMoreNFTs } from 'src/components/discoverMoreNFTs/discoverMoreNFTs'
+import { DiscoverMoreNFTsFilter } from 'src/components/discoverMoreNFTsFilter/discoverMoreNFTsFilter'
+import { useEffect, useState } from 'react'
+import { Nft } from 'src/model/models'
+import { listNft } from 'src/services/nft.service'
 
 const Home: NextPage = () => {
+  const [nftsFilter, setNftsFilter] = useState([])
+  const [loadingNftsFilter, setLoadingNftsFilter] = useState(false)
+
+  useEffect(() => {
+    setLoadingNftsFilter(true)
+    listNft()
+      .then((res) => {
+        res = res.map((item: Nft) => {
+          return {
+            ...item,
+            image: `http://localhost:5000/uploads/${item.image}`,
+          }
+        })
+        setNftsFilter(res)
+        setLoadingNftsFilter(false)
+      })
+      .catch((err) => {
+        console.log('err', err)
+        setLoadingNftsFilter(false)
+      })
+  }, [])
+
+  const updateNft = (nft: Nft) => {
+    const nfts = nftsFilter.filter((nft) => nft._id !== nft._id)
+    nfts.push(nft)
+    setNftsFilter(nfts)
+  }
   return (
     <div className='flex min-h-screen flex-col items-center justify-center py-2'>
       <Head>
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Navbar />
+      <Navbar
+        updateNftsFilter={(nft: Nft) => setNftsFilter([...nftsFilter, nft])}
+      />
       <main className='flex w-full flex-1 flex-col items-center justify-center text-center'>
         <HeroCover card={cardHeroCover} className='px-20 pt-14 pb-32' />
         <section className='flex bg-grey-500 px-20 py-32 text-left gap-14'>
@@ -145,32 +175,12 @@ const Home: NextPage = () => {
             <Button>Sign Up Now</Button>
           </div>
         </section>
-        <section className='bg-grey-500 px-20 py-32 text-left w-full'>
-          <h2 className='font-integralExtra text-3xl mb-14'>
-            Discover more NFTs
-          </h2>
-          <div className='flex gap-3'>
-            {collectionFeaturedNFTs.map((item, index) => (
-              <Button
-                key={index}
-                className={`!py-2.5 !px-5`}
-                buttonStyle={
-                  index === 0 ? ButtonStyle.Primary : ButtonStyle.Grey
-                }
-              >
-                {item.title}
-              </Button>
-            ))}
-          </div>
-          <div className='grid grid-cols-4 gap-10 mt-10'>
-            {discoverMoreNFTs.map((item: discoverMoreNFTs, index: number) => (
-              <Card key={index} card={item} className={`bg-white`} />
-            ))}
-          </div>
-          <div className='text-center	mt-16'>
-            <Button buttonStyle={ButtonStyle.Secondary}>More NFTs</Button>
-          </div>
-        </section>
+
+        <DiscoverMoreNFTsFilter
+          loading={loadingNftsFilter}
+          nfts={nftsFilter}
+          updateNftsFilter={(nft: Nft) => updateNft(nft)}
+        />
         <DiscoverMoreNFTs />
       </main>
       <Footer />
