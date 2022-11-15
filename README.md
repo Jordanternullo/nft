@@ -1,7 +1,7 @@
 
 ## How to use
 
-1- clone le repos
+1- clone le repos \
 2- installer les dependances via 
 ```bash
 yarn install
